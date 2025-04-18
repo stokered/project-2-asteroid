@@ -123,12 +123,12 @@ fetch(
 
     document.getElementById("filter-smallest").addEventListener("click", () => {
       displayList(smallest, "Smallest Asteroids (Top 4)");
-      console.log('Getting results (smallest)')
+      console.log('Getting results (smallest)...')
     });
 
     document.getElementById("filter-largest").addEventListener("click", () => {
       displayList(largest, "Largest Asteroids (Top 4)");
-      console.log('Getting results (largest)');
+      console.log('Getting results (largest)...');
     });
 
   })
