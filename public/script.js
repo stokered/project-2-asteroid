@@ -16,6 +16,13 @@ fetch(
     const asteroidsWithDistance = neos.map((asteroid) => {
       const approachData = asteroid.close_approach_data[0];
       const distance = parseFloat(approachData.miss_distance.kilometers);
+      // added size data - sam
+      const diameterData = asteroid.estimated_diameter.kilometers;
+      const averageDiameter =
+        (diameterData.estimated_diameter_min +
+          diameterData.estimated_diameter_max) /
+        2;
+
       return {
         name: asteroid.name,
         distance,
@@ -23,6 +30,7 @@ fetch(
         speed: parseFloat(
           approachData.relative_velocity.kilometers_per_hour
         ).toFixed(2),
+        averageDiameter, // added size data -sam
       };
     });
 
@@ -49,6 +57,13 @@ fetch(
     const farthest = sortedByDistance.slice(-4); // ascending order of farthest
     const top100 = sortedByDistance.slice(0, 100);
 
+    // sorting by size - sam
+    const sortedBySize = [...asteroidsWithDistance].sort(
+      (a, b) => a.averageDiameter - b.averageDiameter
+    );
+    const smallest = sortedBySize.slice(0, 4);
+    const largest = sortedBySize.slice(-4).reverse(); // biggest first
+
     // Display list function
     const displayList = (list, headingText) => {
       const ul = document.getElementById("asteroid-list");
@@ -61,8 +76,12 @@ fetch(
         const li = document.createElement("li");
         li.textContent = `${
           item.name
-        } - ${item.distance.toLocaleString()} km - Speed: ${item.speed} km/h`;
+        } - ${item.distance.toLocaleString()} km - Speed: ${
+          item.speed
+          // added size info - sam
+        } km/h - Size: ${item.averageDiameter.toFixed(2)} km`;
         li.classList.add("asteroid-item");
+
 
         li.addEventListener("click", (event) => {
           event.stopPropagation();
@@ -101,5 +120,14 @@ fetch(
     document.getElementById("filter-top100").addEventListener("click", () => {
       displayList(top100, "Top 100 Asteroids (Closest to Farthest)");
     });
+
+    document.getElementById("filter-smallest").addEventListener("click", () => {
+      displayList(smallest, "Smallest Asteroids (Top 4)");
+    });
+
+    document.getElementById("filter-largest").addEventListener("click", () => {
+      displayList(largest, "Largest Asteroids (Top 4)");
+    });
+
   })
   .catch((error) => console.error("Error fetching asteroid data:", error));
