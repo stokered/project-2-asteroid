@@ -8,4 +8,5 @@ cd project-2-git
 npm install
 npm start
 
-# You're not supposed to push node modules so mine are in gitignore and you'll have to reinit your own, just use the above commands in your terminal
+# Don't push node modules
+
