@@ -1,7 +1,7 @@
-const API_KEY = "u3Kk3TUsGANe6OMlaIMQNgjLWZlSMohrDK9DbXdO"; // Replace with your NASA API key
+const API_KEY = "u3Kk3TUsGANe6OMlaIMQNgjLWZlSMohrDK9DbXdO"; // 
 const today = new Date();
 const startDate = new Date(today);
-startDate.setDate(today.getDate() - 6); // fetch 7 days total
+startDate.setDate(today.getDate() - 6); // Max updated time range for more variety.
 
 const start = startDate.toISOString().split("T")[0];
 const end = today.toISOString().split("T")[0];
@@ -34,7 +34,7 @@ fetch(
       };
     });
 
-    // Normalize for animation
+    //
     const distances = asteroidsWithDistance.map((a) => a.distance);
     const minDistance = Math.min(...distances);
     const maxDistance = Math.max(...distances);
@@ -49,7 +49,7 @@ fetch(
       );
     };
 
-    // Sorting lists
+    // sorting lists
     const sortedByDistance = [...asteroidsWithDistance].sort(
       (a, b) => a.distance - b.distance
     );
@@ -64,7 +64,7 @@ fetch(
     const smallest = sortedBySize.slice(0, 4);
     const largest = sortedBySize.slice(-4).reverse(); // biggest first
 
-    // Display list function
+    // display list function
     const displayList = (list, headingText) => {
       const ul = document.getElementById("asteroid-list");
       const heading = document.getElementById("asteroid-heading");
@@ -82,7 +82,7 @@ fetch(
         } km/h - Size: ${item.averageDiameter.toFixed(2)} km`;
         li.classList.add("asteroid-item");
 
-
+        //click funct that takes in event to stop propagation
         li.addEventListener("click", (event) => {
           event.stopPropagation();
           const gapPercent = normalize(item.distance);
@@ -101,7 +101,7 @@ fetch(
     // Initial view
     displayList(closest, "4 Closest Asteroids");
 
-    // Reset asteroid on background click
+    // reset asterooid on click
     document.body.addEventListener("click", () => {
       document.getElementById("asteroid-space").style.marginLeft = `15vw`;
       document.getElementById("distance-display").textContent =
