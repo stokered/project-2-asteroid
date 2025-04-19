@@ -1,4 +1,4 @@
-# Project 2 – Express Todo App 📝
+# Project 2 – Asteroid API 
 
 To get started locally:
 
