@@ -16,7 +16,7 @@ fetch(
     const asteroidsWithDistance = neos.map((asteroid) => {
       const approachData = asteroid.close_approach_data[0];
       const distance = parseFloat(approachData.miss_distance.kilometers);
-      // added size data - sam
+      // added size data - sam!!
       const diameterData = asteroid.estimated_diameter.kilometers;
       const averageDiameter =
         (diameterData.estimated_diameter_min +
@@ -30,7 +30,7 @@ fetch(
         speed: parseFloat(
           approachData.relative_velocity.kilometers_per_hour
         ).toFixed(2),
-        averageDiameter, // added size data -sam
+        averageDiameter, // added size data -sam!!
       };
     });
 
@@ -57,7 +57,7 @@ fetch(
     const farthest = sortedByDistance.slice(-4); // ascending order of farthest
     const top100 = sortedByDistance.slice(0, 100);
 
-    // sorting by size - sam
+    // sorting by size - sam!!
     const sortedBySize = [...asteroidsWithDistance].sort(
       (a, b) => a.averageDiameter - b.averageDiameter
     );
@@ -78,7 +78,7 @@ fetch(
           item.name
         } - ${item.distance.toLocaleString()} km - Speed: ${
           item.speed
-          // added size info - sam
+          // added size info - sam!!
         } km/h - Size: ${item.averageDiameter.toFixed(2)} km`;
         li.classList.add("asteroid-item");
 
@@ -120,6 +120,8 @@ fetch(
     document.getElementById("filter-top100").addEventListener("click", () => {
       displayList(top100, "Top 100 Asteroids (Closest to Farthest)");
     });
+
+// added event listeners for size filters
 
     document.getElementById("filter-smallest").addEventListener("click", () => {
       displayList(smallest, "Smallest Asteroids (Top 4)");
